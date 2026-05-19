@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Sermons - St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="text-align: center; margin-bottom: 4rem;">
+        <h1 style="font-size: 3rem;">Sermon Archive</h1>
+        <p style="font-size: 1.2rem; color: var(--text-muted);">Listen, watch, and grow in the Word.</p>
+    </div>
+
+    <div class="card-grid">
+        {% for sermon in sermons %}
+        <div class="card">
+            {% if sermon.series and sermon.series.graphic %}
+                <img src="{{ sermon.series.graphic.url }}" alt="{{ sermon.series.title }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 1rem;">
+            {% else %}
+                <div style="width: 100%; height: 200px; background: linear-gradient(135deg, var(--primary), #4F46E5); border-radius: 8px; margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; color: white;">
+                    <span style="font-size: 3rem; opacity: 0.5;">✝</span>
+                </div>
+            {% endif %}
+            <h3>{{ sermon.title }}</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                {{ sermon.date }} | {{ sermon.speaker.name }}
+            </p>
+            {% if sermon.passage %}
+            <p style="font-weight: 500; color: var(--primary); margin-bottom: 1rem;">{{ sermon.passage }}</p>
+            {% endif %}
+            <a href="{% url 'sermons:sermon_detail' sermon.id %}" class="btn btn-primary" style="width: 100%; text-align: center;">Listen / Watch</a>
+        </div>
+        {% empty %}
+        <p style="grid-column: 1/-1; text-align: center;">No sermons available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Prayer Wall - St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="text-align: center; margin-bottom: 4rem;">
+        <h1 style="font-size: 3rem;">Prayer Wall</h1>
+        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 2rem;">Join us in praying for our community.</p>
+        <a href="{% url 'prayers:submit_prayer' %}" class="btn btn-primary">Submit a Prayer Request</a>
+    </div>
+
+    <div class="card-grid">
+        {% for prayer in prayers %}
+        <div class="card" style="position: relative; overflow: hidden;">
+            <div style="position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--secondary);"></div>
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 1rem;">
+                <h3 style="margin: 0; font-size: 1.2rem;">{{ prayer.name }}</h3>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">{{ prayer.date_submitted|date:"M d, Y" }}</span>
+            </div>
+            <p style="color: #334155; font-size: 1.1rem; line-height: 1.6; font-style: italic;">
+                "{{ prayer.content }}"
+            </p>
+            {% if prayer.is_answered %}
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #E2E8F0; color: #059669; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                <span>✨</span> Praise God! This prayer has been answered.
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="card" style="grid-column: 1/-1; text-align: center; padding: 4rem;">
+            <p style="font-size: 1.2rem; color: var(--text-muted);">The prayer wall is currently empty.</p>
+            <p>Be the first to share a prayer request with the community.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

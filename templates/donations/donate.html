@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Donate - St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 600px;">
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="font-size: 3rem;">Give Online</h1>
+        <p style="font-size: 1.2rem; color: var(--text-muted);">Your generosity supports our mission and community.</p>
+    </div>
+
+    <div class="card">
+        <form method="POST">
+            {% csrf_token %}
+            
+            {% if campaigns %}
+            <div class="form-group">
+                <label for="campaign">Direct your gift (Optional)</label>
+                <select name="campaign" id="campaign">
+                    <option value="">General Fund</option>
+                    {% for c in campaigns %}
+                    <option value="{{ c.id }}">{{ c.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="amount">Donation Amount ($)</label>
+                <input type="number" step="0.01" name="amount" id="amount" required placeholder="50.00" style="font-size: 1.5rem; padding: 1rem;">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" name="name" id="name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" name="email" id="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message (Optional)</label>
+                <textarea name="message" id="message" rows="3"></textarea>
+            </div>
+
+            <!-- Dummy Payment Notice -->
+            <div style="background: #FFFBEB; border: 1px solid #FEF3C7; color: #92400E; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                <strong>Note:</strong> This is a secure dummy form. No real payment will be processed.
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.2rem;">Complete Donation</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

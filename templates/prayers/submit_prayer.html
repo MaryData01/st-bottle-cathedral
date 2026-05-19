@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Submit a Prayer Request - St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 600px;">
+    <a href="{% url 'prayers:prayer_wall' %}" style="display: inline-block; margin-bottom: 2rem;">&larr; Back to Prayer Wall</a>
+    
+    <div style="text-align: center; margin-bottom: 3rem;">
+        <h1 style="font-size: 2.5rem;">How can we pray for you?</h1>
+        <p style="color: var(--text-muted);">Our pastoral team and community are here to lift you up.</p>
+    </div>
+
+    <div class="card">
+        <form method="POST">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" name="name" id="name" required placeholder="John Doe or 'Anonymous'">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address (Optional)</label>
+                <input type="email" name="email" id="email" placeholder="For pastoral staff to reach out">
+            </div>
+
+            <div class="form-group">
+                <label for="content">Prayer Request</label>
+                <textarea name="content" id="content" rows="5" required placeholder="Share your prayer request here..."></textarea>
+            </div>
+
+            <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 2rem;">
+                <input type="checkbox" name="is_public" id="is_public" style="width: auto;">
+                <label for="is_public" style="margin: 0; font-weight: normal;">Share this prayer on the public Prayer Wall</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Submit Prayer Request</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

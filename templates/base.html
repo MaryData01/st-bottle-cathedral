@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}St. Bottle Cathedral{% endblock %} | A Place of Worship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="{% url 'core:home' %}" class="brand">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 7H7"/></svg>
+                St. Bottle Cathedral
+            </a>
+            <div class="nav-links">
+                <a href="{% url 'core:home' %}">Home</a>
+                <a href="{% url 'core:about' %}">About</a>
+                <a href="{% url 'sermons:sermon_list' %}">Sermons</a>
+                <a href="{% url 'events:event_list' %}">Events</a>
+                <a href="{% url 'prayers:prayer_wall' %}">Prayer Wall</a>
+                <a href="{% url 'donations:donate' %}" class="btn btn-primary" style="color: white;">Donate</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% if messages %}
+            <div class="container" style="padding-top: 2rem; padding-bottom: 0;">
+                {% for message in messages %}
+                    <div class="card" style="background: var(--secondary); color: white; margin-bottom: 1rem; padding: 1rem;">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>St. Bottle Cathedral</h3>
+                <p>A welcoming community dedicated to spiritual growth and service.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="{% url 'core:home' %}">Home</a>
+                <a href="{% url 'sermons:sermon_list' %}">Sermons</a>
+                <a href="{% url 'events:event_list' %}">Events</a>
+                <a href="{% url 'donations:donate' %}">Give</a>
+            </div>
+            <div class="footer-col">
+                <h3>Contact</h3>
+                <p>123 Faith Avenue</p>
+                <p>Holy City, HC 12345</p>
+                <p>contact@stbottle.org</p>
+                <p>(555) 123-4567</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <p>&copy; {% now "Y" %} St. Bottle Cathedral. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

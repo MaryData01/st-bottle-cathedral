@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ sermon.title }} - St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 800px;">
+    <a href="{% url 'sermons:sermon_list' %}" style="display: inline-block; margin-bottom: 2rem;">&larr; Back to Sermons</a>
+    
+    <div class="card">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">{{ sermon.title }}</h1>
+        <div style="display: flex; gap: 1rem; color: var(--text-muted); margin-bottom: 2rem; border-bottom: 1px solid #E2E8F0; padding-bottom: 1rem;">
+            <span>📅 {{ sermon.date }}</span>
+            <span>👤 {{ sermon.speaker.name }}</span>
+            {% if sermon.passage %}
+            <span>📖 {{ sermon.passage }}</span>
+            {% endif %}
+        </div>
+
+        {% if sermon.livestream_url %}
+        <div style="margin-bottom: 2rem; border-radius: 8px; overflow: hidden; box-shadow: var(--shadow);">
+            <iframe width="100%" height="450" src="{{ sermon.livestream_url }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        {% elif sermon.video_url %}
+        <div style="margin-bottom: 2rem;">
+            <a href="{{ sermon.video_url }}" target="_blank" class="btn btn-primary">Watch on YouTube/Vimeo</a>
+        </div>
+        {% endif %}
+
+        {% if sermon.audio_file %}
+        <div style="margin-bottom: 2rem; background: var(--background); padding: 1rem; border-radius: 8px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Listen to Audio</h3>
+            <audio controls style="width: 100%;">
+                <source src="{{ sermon.audio_file.url }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+        {% endif %}
+
+        {% if sermon.transcript %}
+        <div style="margin-top: 3rem;">
+            <h2>Transcript</h2>
+            <div style="line-height: 1.8; color: #334155;">
+                {{ sermon.transcript|linebreaks }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
