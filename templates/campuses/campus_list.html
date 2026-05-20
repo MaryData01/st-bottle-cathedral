@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Campuses - St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="text-align: center; margin-bottom: 4rem;">
+        <h1 style="font-size: 3rem;">Our Campuses</h1>
+        <p style="font-size: 1.2rem; color: var(--text-muted);">Find a St. Bottle Cathedral location near you.</p>
+    </div>
+
+    <div class="card-grid">
+        {% for campus in campuses %}
+        <div class="card" style="border-top: 4px solid var(--primary);">
+            <h3>{{ campus.name }}</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">📍 {{ campus.address }}</p>
+            {% if campus.contact_email %}
+                <p style="margin-bottom: 0.5rem;">📧 {{ campus.contact_email }}</p>
+            {% endif %}
+            {% if campus.contact_phone %}
+                <p style="margin-bottom: 1.5rem;">📞 {{ campus.contact_phone }}</p>
+            {% endif %}
+            <a href="#" class="btn btn-secondary" style="width: 100%; text-align: center;">View Campus Details</a>
+        </div>
+        {% empty %}
+        <p style="grid-column: 1/-1; text-align: center;">More campuses coming soon.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

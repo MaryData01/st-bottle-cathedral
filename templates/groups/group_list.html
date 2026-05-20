@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Ministry Groups - St. Bottle Cathedral{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div style="text-align: center; margin-bottom: 4rem;">
+        <h1 style="font-size: 3rem;">Ministry Groups</h1>
+        <p style="font-size: 1.2rem; color: var(--text-muted);">Connect, grow, and serve together.</p>
+    </div>
+
+    <div class="card-grid">
+        {% for group in groups %}
+        <div class="card" style="position: relative;">
+            <div style="position: absolute; top: -10px; right: 20px; background: var(--secondary); color: white; padding: 0.25rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600;">
+                {{ group.category.name|default:"General" }}
+            </div>
+            <h3 style="margin-top: 1rem;">{{ group.name }}</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                📍 {{ group.campus.name|default:"Online / Global" }}
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+                🕒 {{ group.meeting_schedule }}
+            </p>
+            <p style="margin-bottom: 1.5rem; color: #334155;">{{ group.description|truncatewords:20 }}</p>
+            <a href="#" class="btn btn-primary" style="width: 100%; text-align: center;">Join Group</a>
+        </div>
+        {% empty %}
+        <p style="grid-column: 1/-1; text-align: center;">No groups currently available.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

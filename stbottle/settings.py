@@ -16,12 +16,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Local Apps
     'core',
     'accounts',
     'sermons',
     'events',
     'donations',
     'prayers',
+    'campuses',
+    'groups',
+    'volunteers',
+    'communications',
+    'api',
+    # Third party
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

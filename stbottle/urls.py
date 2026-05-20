@@ -26,6 +26,9 @@ urlpatterns = [
     path('events/', include('events.urls')),
     path('donations/', include('donations.urls')),
     path('prayers/', include('prayers.urls')),
+    path('campuses/', include('campuses.urls')),
+    path('groups/', include('groups.urls')),
+    path('api/', include('api.urls')),
 ]
 
 if settings.DEBUG:

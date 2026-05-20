@@ -21,6 +21,7 @@ class Series(models.Model):
         return self.title
 
 class Sermon(models.Model):
+    campus = models.ForeignKey('campuses.Campus', on_delete=models.SET_NULL, null=True, blank=True, related_name='sermons')
     title = models.CharField(max_length=200)
     date = models.DateField()
     passage = models.CharField(max_length=200, blank=True)
